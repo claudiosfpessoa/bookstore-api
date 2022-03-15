@@ -1,34 +1,50 @@
 package com.claudio.bookstore.domain;
 
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Categoria {
-	
-	private int id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
+public class Categoria implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private String nome;
 	private String descricao;
-	
+
+	@OneToMany
 	private List<Livro> livros = new ArrayList<>();
 
 	public Categoria() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	public Categoria(int id, String nome, String descricao) {
+	
+	public Categoria(Integer id, String nome, String descricao) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -70,7 +86,7 @@ public class Categoria {
 		if (getClass() != obj.getClass())
 			return false;
 		Categoria other = (Categoria) obj;
-		return id == other.id;
+		return Objects.equals(id, other.id);
 	}
-	
+
 }
